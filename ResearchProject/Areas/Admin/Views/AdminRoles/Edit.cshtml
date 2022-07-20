@@ -1,0 +1,37 @@
+﻿@model ResearchProject.Models.Role
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+            <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index" class="breadcrumb-item">List</a>
+            <span class="breadcrumb-item active">Edit</span>
+        </nav>
+    </div>
+</div>
+<form asp-action="Edit" asp-route-id="@Model.RoleId" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="RoleId" />
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Role</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" asp-for="RoleName" placeholder="RoleName">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" asp-for="Description" placeholder="Description">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</form>

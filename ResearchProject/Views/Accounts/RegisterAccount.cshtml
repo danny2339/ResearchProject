@@ -1,0 +1,116 @@
+﻿@model ResearchProject.ModelViews.RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Register</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/Adminassets/images/logo/favicon.png">
+
+    <!-- page css -->
+    <!-- Core css -->
+    <link href="~/Adminassets/css/app.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="app">
+        <div class="container-fluid p-h-0 p-v-20 bg full-height d-flex" style="background-image: url('../../Adminassets/images/others/login-3.png')">
+            <div class="d-flex flex-column justify-content-between w-100">
+                <div class="container d-flex h-100">
+                    <div class="row align-items-center w-100">
+                        <div class="col-md-7 col-lg-5 m-h-auto">
+                            <div class="card shadow-lg">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between m-b-30">
+                                        <img class="img-fluid" width="270" height="65" alt="" src="~/Adminassets/images/logo/coffeelogo.jpg">
+                                    </div>
+                                    <form asp-action="RegisterAccount">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <h2 style="text-align:center">Sign Up</h2>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-semibold" for="userName">Full Name:</label>
+                                            <input type="text" asp-for="FullName" class="form-control" placeholder="Username">
+                                            <span asp-validation-for="FullName" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-semibold" for="email">Email:</label>
+                                            <input type="email" asp-for="Email" class="form-control" placeholder="Email">
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-semibold" for="userName">Phone Number:</label>
+                                            <input type="tel" asp-for="Phone" class="form-control" placeholder="Phone Number">
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-semibold" for="password">Password:</label>
+                                            <input type="password" asp-for="Password" class="form-control" placeholder="Password">
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-semibold" for="confirmPassword">Confirm Password:</label>
+                                            <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password">
+                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="d-flex align-items-center justify-content-between p-t-15">
+                                                <button class="btn btn-primary">Register</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none d-md-flex p-h-40 justify-content-between">
+                    <span class="">© 2022 Copyright</span>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="text-dark text-link" href="">Legal</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-dark text-link" href="">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Core Vendors JS -->
+    <script src="~/Adminassets/js/vendors.min.js"></script>
+
+    <!-- page js -->
+    <!-- Core JS -->
+    <script src="~/Adminassets/js/app.min.js"></script>
+    @await Component.InvokeAsync("Notyf")
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

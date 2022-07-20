@@ -1,0 +1,90 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<ResearchProject.Models.Page>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Page List" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+    <div class="page-header">
+        <h2>Pages</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                <span class="breadcrumb-item active">Page List : @CurrentPage</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row m-b-30">
+            <div class="col-lg-8">
+                </div>
+                
+                    <div class="col-lg-4 text-right">
+                        <a class="btn btn-primary" asp-controller="AdminPages" asp-action="Create"><i class="fa fa-plus m-r-5"></i><span> Add Page</span></a>
+                    </div>
+               
+            </div>
+           
+            
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Page Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    string url = $"/page/{item.Alias}";
+                                    <tr>
+                                        <td>@item.PageId</td>
+                                        <td>
+                                            <a target="_blank" href="@url">@item.PageName</a>
+                                        </td>
+                                        <td>
+                                            @if (item.Published == true)
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <div class="badge badge-success badge-dot m-r-10"></div>
+                                                    <div>Public</div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <div class="badge badge-warning badge-dot m-r-10"></div>
+                                                    <div>Non-Public</div>
+                                                </div>
+                                            }
+
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-outline-primary m-2" asp-area="Admin" asp-controller="AdminPages" asp-action="Details" asp-route-id="@item.PageId">View</a>
+                                            <a class="btn btn-outline-secondary m-2" asp-area="Admin" asp-controller="AdminPages" asp-action="Edit" asp-route-id="@item.PageId">Edit</a>
+                                            <a class="btn btn-outline-success m-2" asp-area="Admin" asp-controller="AdminPages" asp-action="Delete" asp-route-id="@item.PageId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                    <div aria-label="Page Navigation">
+                        <ul class="pagination">
+                            <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminPages" asp-action="Index" />
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 

@@ -1,0 +1,76 @@
+﻿<!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> tanndgcs190073@fpt.edu.vn</li>
+                            <li><a href="tel://84785718899">Call Us: +84.785.718.899</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="header__top__right__language">
+                                <a href="/myaccount.html"><i class="fa fa-user-circle-o"></i> My Account</a>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="/myaccount.html">Profile</a></li>
+                                    <li><a href="/logout.html">Log Out</a></li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="header__top__right__auth">
+                                <a href="/Login.html"><i class="fa fa-user"></i> Login</a>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="/register.html">| Register</a>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/assets/img/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a href="/shop.html">Shop</a></li>
+                        <li>
+                            <a href="/page/guide-shopping-online">Guide shopping</a>
+                        </li>
+                        <li><a href="/blogs.html">Blog</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3" id="numbercart">
+               @await Component.InvokeAsync("NumberCart")
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+<!-- Header Section End -->

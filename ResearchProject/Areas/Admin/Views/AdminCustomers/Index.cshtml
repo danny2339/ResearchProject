@@ -1,0 +1,108 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<ResearchProject.Models.Customer>
+
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Customer List" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+    <div class="page-header">
+        <h2>Customer List</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                <span class="breadcrumb-item active">Customer List : @CurrentPage</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row m-b-30">
+                <div class="col-lg-8">
+                    <div class="d-md-flex">
+                        <div class="m-b-10 m-r-15">
+                            
+                        </div>
+                        <div class="m-b-10">
+                            
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 text-right">
+                    <form method="post" asp-area="Admin" asp-controller="AdminCustomers" asp-action="ExportToExcel">
+                        <button class="btn btn-primary"><i class="fa fa-plus m-r-5"></i><span>Export</span></button>
+                    </form>
+                </div>
+            </div>
+        <div class="col-12">
+            
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">FullName</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Address</th>
+                                
+                                <th scope="col">Status</th>
+                                <th scope="col" style="text-align:center">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.CustomerId</td>
+                                        <td>@item.FullName</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Phone</td>
+                                        <td>@item.Address</td>
+                                       
+                                        <td>
+                                            @if (item.Active)
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <div class="badge badge-success badge-dot m-r-10"></div>
+                                                    <div>Active</div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <div class="badge badge-warning badge-dot m-r-10"></div>
+                                                    <div>Block</div>
+                                                </div>
+                                            }
+
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-outline-primary m-2" asp-area="Admin" asp-controller="AdminAccounts" asp-action="Details" asp-route-id="@item.CustomerId">View</a>
+                                            <a class="btn btn-outline-secondary m-2" asp-area="Admin" asp-controller="AdminAccounts" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a>
+                                            <a class="btn btn-outline-success m-2" asp-area="Admin" asp-controller="AdminAccounts" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                        <div aria-label="Page Navigation">
+                            <ul class="pagination">
+                                <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index" /> 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+ 
+
+

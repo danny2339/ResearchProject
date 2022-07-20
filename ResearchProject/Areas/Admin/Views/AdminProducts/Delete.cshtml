@@ -1,0 +1,153 @@
+﻿@model ResearchProject.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product" + Model.ProductName;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+            <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item">Product List</a>
+            <span class="breadcrumb-item active">Delete Product: @Model.ProductName</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Product: @Model.ProductName</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark, font-weight-semibold">@Model.ProductId</td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td>@Model.ProductName</td>
+                    </tr>
+                    <tr>
+                        <td>Short Description:</td>
+                        <td>@Model.ShortDesc</td>
+                    </tr>
+                    <tr>
+                        <td>Price:</td>
+                        <td>@Model.Price</td>
+                    </tr>
+                    <tr>
+                        <td>Discount:</td>
+                        <td>@Model.Discount</td>
+                    </tr>
+                    <tr>
+                        <td>Active:</td>
+                        <td>
+                            @if (Model.Active)
+                            {
+                                <div class="switch m-r-10">
+                                    <input type="checkbox" id="switch-active" checked="" />
+                                    <label for="active"></label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="switch m-r-10">
+                                    <input type="checkbox" id="switch-block" />
+                                    <label for="block"></label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BestSeller:</td>
+                        <td>
+                            @if (Model.BestSellers)
+                            {
+                                <div class="switch m-r-10">
+                                    <input type="checkbox" id="switch-active" checked="" />
+                                    <label for="active"></label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="switch m-r-10">
+                                    <input type="checkbox" id="switch-block" />
+                                    <label for="block"></label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>HomeFlag:</td>
+                        <td>
+                            @if (Model.HomeFlag)
+                            {
+                                <div class="switch m-r-10">
+                                    <input type="checkbox" id="switch-active" checked="" />
+                                    <label for="active"></label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="switch m-r-10">
+                                    <input type="checkbox" id="switch-block" />
+                                    <label for="block"></label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Category:</td>
+                        <td>@Model.Cat.CatName</td>
+                    </tr>
+                    <tr>
+                        <td>Date Created:</td>
+                        <td>@Model.DateCreated</td>
+                    </tr>
+                    <tr>
+                        <td>Date Modified:</td>
+                        <td>@Model.DateModified</td>
+                    </tr>
+                    <tr>
+                        <td>Title:</td>
+                        <td>@Model.Title</td>
+                    </tr>
+                    <tr>
+                        <td>MetaDescription:</td>
+                        <td>@Model.MetaDesc</td>
+                    </tr>
+                    <tr>
+                        <td>MetaKey:</td>
+                        <td>@Model.MetaKey</td>
+                    </tr>
+                    <tr>
+                        <td>Tags:</td>
+                        <td>@Model.Tags</td>
+                    </tr>
+                    <tr>
+                        <td>Avatar:</td>
+                        <td>
+                            <img width="200" height="200" src="~/images/products/@Model.Thumb" alt="@Model.Title" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Delete Confirm:</td>
+                        <td>
+                            <form asp-controller="AdminProducts" asp-action="Delete" asp-route-id="@Model.ProductId">
+                                <input type="hidden" asp-for="ProductId" />
+                                <input type="submit" value="Delete" class="btn btn-danger" /> 
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

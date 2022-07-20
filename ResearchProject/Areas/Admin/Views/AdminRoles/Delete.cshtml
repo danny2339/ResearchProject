@@ -1,0 +1,52 @@
+﻿@model ResearchProject.Models.Role
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+            <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index" class="breadcrumb-item">List</a>
+            <span class="breadcrumb-item active">Delete</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Role Info</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark, font-weight-semibold">@Model.RoleId</td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td>@Model.RoleName</td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Delete Confirm:
+                        </td>
+                        <td>
+                            <form asp-action="Delete" asp-route-id="@Model.RoleId">
+                                <input type="hidden" asp-for="RoleId" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

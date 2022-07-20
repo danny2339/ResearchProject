@@ -1,0 +1,162 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<ResearchProject.Models.Product>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Product List" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+    <div class="page-header">
+        <h2>Product</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                <span class="breadcrumb-item active">Product List : @CurrentPage</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row m-b-30">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-affix m-v-10">
+                                <select class="custom-select" id="txtCatID" name="txtCatID" style="min-width:180px; border-radius:5px; border-width:thin" asp-items="ViewBag.CatId" required>
+                                    <option selected>Choose Category</option>
+                                    <option value="0">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-affix m-v-10">
+                                <i class="prefix-icon anticon anticon-search opacity-04"></i>
+                                <input id="keyword" name="keyword" type="text" class="form-control" placeholder="Search" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 text-right">
+                    <a class="btn btn-primary" asp-controller="AdminProducts" asp-action="Create"><i class="fa fa-plus m-r-5"></i><span> Add Product</span></a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Inventory</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody id="records_table">
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ProductId</td>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.Cat.CatName</td>
+                                        <td>@item.Price$</td>
+                                        <td>@item.UnitslnStock</td>
+                                        <td>
+                                            @if (item.UnitslnStock.Value > 0)
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <div class="badge badge-success badge-dot m-r-10"></div>
+                                                    <div>In Stock</div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <div class="badge badge-warning badge-dot m-r-10"></div>
+                                                    <div>Out of Stock</div>
+                                                </div>
+                                            }
+
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-outline-primary m-2" asp-area="Admin" asp-controller="AdminProducts" asp-action="Details" asp-route-id="@item.ProductId">View</a>
+                                            <a class="btn btn-outline-secondary m-2" asp-area="Admin" asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                                            <a class="btn btn-outline-success m-2" asp-area="Admin" asp-controller="AdminProducts" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                    <div aria-label="Page Navigation">
+                        <ul class="pagination">
+                            <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-route-CatID="@ViewBag.CurrentCateID" asp-action="Index" />
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+ 
+
+    
+
+
+
+@section Scripts {
+    <script>
+
+
+        $(document).ready(function () {
+            jQuery("#txtCatID").change(function () {
+                var catID = jQuery(this).children(":selected").attr("value");
+                catID = parseFloat(catID);
+                $('#txtCatID option')
+                    .removeAttr('selected');
+                $("#txtCatID > [value=" + catID + "]").attr("selected", "true");
+                $.ajax({
+                    url: '/Admin/AdminProducts/Filter',
+                    dataType: "json",
+                    type: "GET",
+                    data: {
+                        CatID: catID
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+            
+            $("#keyword").keyup(function () {
+                var strkeyword = $("#keyword").val();
+                $.ajax({
+                    url: '/Admin/Search/FindProduct/',
+                    datatype: "json",
+                    type: "POST",
+                    data: { keyword: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html(results);
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+}

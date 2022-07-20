@@ -1,0 +1,160 @@
+﻿@model ResearchProject.Models.News
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = $"/blog/{Model.Alias}-{Model.PostId}.html";
+    List<News> relatednews = ViewBag.relatednews;
+    List<Category> lscat = ViewBag.lscat;
+}
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Category</span>
+                    </div>
+                    <ul>
+                        @if (lscat != null && lscat.Count() > 0)
+                        {
+                            foreach (var item in lscat)
+                            {
+                                string urlcatt = $"/{item.Alias}";
+                                <li><a href="@urlcatt">@item.CatName</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="#">
+                            <input type="text" placeholder="What do yo u need?">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5><a href="tel://84785718899">+84.785.718.899</a></h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Details Hero Begin -->
+<section class="blog-details-hero set-bg" data-setbg="assets/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="blog__details__hero__text" style="color:black !important">
+                    <h2>@Model.Title</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Details Hero End -->
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 order-md-1 order-2">
+                <div class="blog__sidebar">
+
+                    <div class="blog__sidebar__item">
+                        <h4>Categories</h4>
+                        <ul>
+                            <li><a href="#">All</a></li>
+                            <li><a href="#">Beauty (20)</a></li>
+                            <li><a href="#">Food (5)</a></li>
+                            <li><a href="#">Life Style (9)</a></li>
+                            <li><a href="#">Travel (10)</a></li>
+                        </ul>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>Recent News</h4>
+                        <div class="blog__sidebar__recent">
+                            @if (relatednews != null && relatednews.Count() > 0)
+                            {
+                                foreach (var item in relatednews)
+                                {
+                                    string _url = $"/blog/{item.Alias}-{item.PostId}.html";
+                                    <a href="@_url" class="blog__sidebar__recent__item">
+                                        <div class="blog__sidebar__recent__item__pic">
+                                            <img src="~/images/news/@item.Thumb" height="70" width="70" alt="@item.Title">
+                                        </div>
+                                        <br />
+                                        <div class="blog__sidebar__recent__item__text">
+                                            <h6>@item.Title</h6>
+                                            <span>@item.CreatedDate</span>
+                                        </div>
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="blog__sidebar__item">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7 order-md-1 order-1">
+                <div class="blog__details__text">
+                    <img src="/images/news/@Model.Thumb" height="500" width="700" alt="@Model.Title">
+                    <p>
+                        @Html.Raw(Model.Contents)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Details Section End -->
+<!-- Related Blog Section Begin -->
+<section class="related-blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title related-blog-title">
+                    <h2>Post You May Like</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (relatednews != null && relatednews.Count() > 0)
+            {
+                foreach (var item in relatednews)
+                {
+                    string _url = $"/blog/{item.Alias}-{item.PostId}.html";
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <a href="@_url">
+                                    <img src="~/images/news/@item.Thumb" alt="@item.Title">
+                                </a>
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i>@item.CreatedDate</li>
+                                </ul>
+                                <h5><a href="@_url">@item.Title</a></h5>
+                                <p>@item.Scontents</p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+</section>
+<!-- Related Blog Section End -->

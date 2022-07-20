@@ -1,0 +1,42 @@
+﻿@model List<Order>
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table table-hover e-commerce-table dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+        <thead>
+            <tr role="row">
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="ID: activate to sort column ascending" style="width: 91.7656px;">ID</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Customer: activate to sort column ascending" style="width: 313.953px;">Order Date</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 178.484px;">Shipping Date</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Amount: activate to sort column ascending" style="width: 158.016px;">Status</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 170.438px;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr role="row" class="odd">
+                    <td>
+                        #@item.OrderId
+                    </td>
+                    <td>
+                        @item.OrderDate
+                    </td>
+                    <td>@item.ShipDate</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="badge badge-success badge-dot m-r-10"></div>
+                            <div>@item.TransactStatus.Description</div>
+                        </div>
+                    </td>
+                    <td>@item.TotalMoney</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <p>Not have orders yet</p>
+}
